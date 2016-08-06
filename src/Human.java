@@ -5,13 +5,14 @@ public class Human extends Player {
 		super("");
 	}
 
-	public Human(String word) {
-		super(word);
+	public Human(int difficulty) {
+		this.setWord(difficulty);
 	}
 
 	@Override
 	public String guess() {
-		return null;
+		System.out.println("Enter your Guess :");
+		return Util.getInput();
 	}
 
 	@Override

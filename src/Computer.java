@@ -1,14 +1,14 @@
+import java.util.*;
 
 public class Computer extends Player {
-	final int DEFAULT_DIFFICULTY = 4;
-	int difficulty;
-
+	public ArrayList<String> possibleWords;
+	
 	public Computer() {
-		difficulty = DEFAULT_DIFFICULTY;
+		super("");
 	}
 
 	public Computer(int difficulty) {
-		this.difficulty = difficulty;
+		this.setWord(difficulty);
 	}
 
 	@Override
@@ -18,7 +18,7 @@ public class Computer extends Player {
 
 	@Override
 	public void setWord(int length) {
-		
+
 	}
 
 }

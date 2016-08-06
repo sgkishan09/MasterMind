@@ -2,9 +2,14 @@ import java.util.*;
 
 public abstract class Player {
 	String word;
+	int prevScore = Integer.MIN_VALUE;
 
 	public Player() {
 		word = "";
+	}
+
+	public void setPrevScore(int score) {
+		this.prevScore = score;
 	}
 
 	public Player(String word) {
@@ -23,6 +28,8 @@ public abstract class Player {
 				myWordSet.remove(letter);
 			}
 		}
+		if (count == inputWord.length() && !word.equals(inputWord))
+			return -1;
 		return count;
 	}
 
