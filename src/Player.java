@@ -2,7 +2,7 @@ import java.util.*;
 
 public abstract class Player {
 	String word;
-	int prevScore = Integer.MIN_VALUE;
+	int prevScore = 0;
 
 	public Player() {
 		word = "";
@@ -17,6 +17,11 @@ public abstract class Player {
 	}
 
 	abstract public void setWord(int length);
+
+	public boolean isValid(String word) {
+		HashSet<String> wordSet = new HashSet<>(Arrays.asList(word.split("")));
+		return wordSet.size() == word.length();
+	}
 
 	public int getScore(String inputWord) {
 		HashSet<String> myWordSet = new HashSet<>(Arrays.asList(word.split("")));
