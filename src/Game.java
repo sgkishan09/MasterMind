@@ -1,6 +1,7 @@
 
 public class Game {
 	Player players[];
+	boolean over = false;
 
 	public Game() {
 	}
@@ -14,7 +15,7 @@ public class Game {
 
 	}
 
-	public static void main() {
+	public static void main(String[] args) {
 		// Game game=new Game(new Human(),new Computer(2));
 		// game.run();
 	}
