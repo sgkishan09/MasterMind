@@ -1,5 +1,6 @@
 import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Computer extends Player {
 	public ArrayList<String> possibleWords;
@@ -45,36 +46,38 @@ public class Computer extends Player {
 		return list;
 	}
 
+	public boolean check(String word1, String word2) {
+		for (String letter : word2.split("")) {
+			if (!word1.contains(letter))
+				return false;
+		}
+		return true;
+	}
+
 	public void eliminateWordsFromList(String word) {
 		possibleWords.remove(prevGuess);
 		if (!first) {
-			System.out.println("Trying to eliminate " + word);
-			ArrayList<String> removeWords = new ArrayList<String>();
-			System.out.println(prevGuess + "\t" + prevScore);
 			for (int remove = prevScore + 1; remove < possibleWords.get(0).length(); remove++) {
-				ArrayList<String> removeList = combination(word.toCharArray(), remove);
-				System.out.println(removeList);
-				for (String removePhrase : removeList) {
-					if (isValid(removePhrase)) {
-						for (String possible : possibleWords) {
-							if (possible.contains(removePhrase)) {
-								removeWords.add(possible);
-							}
-						}
+				{
+					ArrayList<String> removeList = combination(word.toCharArray(), remove);
+					for (String removePhrase : removeList) {
+						if (isValid(removePhrase))
+							possibleWords.removeIf(p -> check(p, removePhrase));
 					}
 				}
 			}
-			possibleWords.removeAll(removeWords);
-			System.out.println(removeWords);
 		} else
+			{
 			first = false;
+			}
 	}
 
 	public HashSet<String> AnagramCluster = new HashSet<String>();
 
 	private void generateCluster(String word) {
 		String hash = sort(word);
-		AnagramCluster.add(word);
+		AnagramCluster.clear();
+		possibleWords.remove(word);
 		for (String iter : possibleWords) {
 			if (sort(hash).equals(sort(iter)))
 				AnagramCluster.add(iter);
@@ -89,14 +92,15 @@ public class Computer extends Player {
 
 	@Override
 	public String guess() {
+		possibleWords.remove(prevGuess);
 		int rand = (int) (Math.random() % possibleWords.size());
-		String guess = possibleWords.get(rand);
+		String guess = possibleWords.get(0);
 		if (prevScore == -1) {
-			System.out.println("ANAGRAM");
 			generateCluster(prevGuess);
+			return (String) AnagramCluster.toArray()[0];
+
 		} else {
 			if (!first)
-
 				eliminateWordsFromList(prevGuess);
 			else
 				first = false;

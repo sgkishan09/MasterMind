@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Game {
 	final int DEFAULT_DIFFICULTY = 4;
-	Player players[]={new Human(),new Computer()};
+	Player players[] = { new Human(), new Computer() };
 	boolean over = false;
 	int difficulty;
 
@@ -21,7 +21,10 @@ public class Game {
 
 	public void run() {
 		int turn = 1;
+		int count = 0;
+		System.out.println(players[0] + "\t" + players[1]);
 		while (!over) {
+			count++;
 			String word = players[turn].guess();
 			int score = players[(turn + 1) % 2].getScore(word);
 			System.out.println("Word Guessed\t" + word + "\t" + score);
@@ -30,8 +33,9 @@ public class Game {
 				over = true;
 				System.out.println("Player " + turn + " won!");
 			}
-//			turn = (turn + 1) % 2;
+			// turn = (turn + 1) % 2;
 		}
+		System.out.println("No of Moves:" + count);
 	}
 
 	public static String[] append(String a, String b[]) {
@@ -40,9 +44,8 @@ public class Game {
 		return b;
 	}
 
-
 	public static void main(String[] args) {
-		Game game=new Game(3);
+		Game game = new Game(6);
 		game.run();
 	}
 }
